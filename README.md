@@ -18,7 +18,8 @@ It was deployed and committed and cloned again without zero error (to install, r
 
 ### Dev
 
--   First, clone the repo.
+-   You can find the repo here https://github.com/ccreusat/front-end-clement-creusat-test
+-   First, clone the repo : git@github.com:ccreusat/front-end-clement-creusat-test.git
 -   In the directory repo, `npm install` to install the project
 -   To run it locally, `npm start`
 -   You get access to the page through [http://localhost:3000](http://localhost:3000)
