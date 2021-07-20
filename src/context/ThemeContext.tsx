@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
-type ThemeType = "" | "light";
+type ThemeType = "dark" | "light";
 
 interface ThemeContextInterface {
 	currentTheme: string;
@@ -10,12 +10,12 @@ interface ThemeContextInterface {
 }
 
 export const ThemeContext = React.createContext<ThemeContextInterface>({
-	currentTheme: "",
+	currentTheme: "dark",
 	setCurrentTheme: () => {},
 });
 
 const ThemeProvider = ({ children }: any) => {
-	const [name] = useLocalStorage<string>("theme", "");
+	const [name] = useLocalStorage<string>("theme", "dark");
 	const [currentTheme, setCurrentTheme] = React.useState<any>(name);
 
 	return (

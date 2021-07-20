@@ -1,11 +1,11 @@
 {
 	"compilerOptions": {
-		"sourceMap": true,
+		"sourceMap": false,
 		"jsx": "react-jsx",
 		"target": "es5",
 		"allowJs": true,
 		"esModuleInterop": true
 	},
-	"include": ["src"],
-	"exclude": ["node_modules", "public"]
+	"include": ["src", "setupTests.ts"],
+	"exclude": ["node_modules", "public", "./src/styles"]
 }

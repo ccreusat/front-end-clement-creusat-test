@@ -7,24 +7,24 @@ import { CardList } from "../../styles/GameListStyles";
 
 // Hooks
 import { useLocalStorage } from "../../hooks/useLocalStorage";
-import { useFetchGames } from "../../hooks/useFetchGames";
+import { useFetchData } from "../../hooks/useFetchData";
 
 type GamesListProps = {
 	currentFilter: string;
 };
 
 const GamesList = ({ currentFilter }: GamesListProps) => {
-	const [{ loading, error, games }] = useFetchGames();
+	const [{ loading, error, data }] = useFetchData("./games.json");
 	const [storedGames, setStoredGames] = useLocalStorage("games", []);
 
 	const [skeletonLoading, isSkeletonLoading] = React.useState(true);
 
 	// Loading Fake Components + Storing Games List (Would not be ok with a larger list (thinking about infinite scroll, load action, interaction with DB, ...))
 	React.useEffect(() => {
-		if (loading) {
+		if (skeletonLoading) {
 			isSkeletonLoading(false);
 		} else {
-			setStoredGames(games);
+			setStoredGames(data.games);
 		}
 	}, [loading]);
 
@@ -45,7 +45,7 @@ const GamesList = ({ currentFilter }: GamesListProps) => {
 	const renderGameList = () => {
 		const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-		if (skeletonLoading) {
+		if (loading) {
 			return (
 				<CardList>
 					{arr.map(index => (
@@ -54,26 +54,27 @@ const GamesList = ({ currentFilter }: GamesListProps) => {
 				</CardList>
 			);
 		}
+
+		if (error) {
+			return (
+				<div className="center">
+					<p>{error}</p>
+				</div>
+			);
+		}
+
 		return currentFilter === "All" ? (
 			<CardList>
-				{games?.map((game, index) => renderGameCard(game, index))}
+				{storedGames?.map((game, index) => renderGameCard(game, index))}
 			</CardList>
 		) : (
 			<CardList>
-				{games
+				{storedGames
 					?.filter(game => game.platform === currentFilter)
 					.map((game, index) => renderGameCard(game, index))}
 			</CardList>
 		);
 	};
-
-	if (error) {
-		return (
-			<div className="center">
-				<p>{error}</p>
-			</div>
-		);
-	}
 
 	return renderGameList();
 };

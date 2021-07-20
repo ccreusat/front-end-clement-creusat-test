@@ -1,4 +1,3 @@
-import * as React from "react";
 import Skeleton from "react-loading-skeleton";
 import { Card, CardContent } from "../../styles/GameCardStyles";
 

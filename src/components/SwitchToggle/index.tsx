@@ -6,7 +6,7 @@ import { SwitchToggleWrap } from "../../styles/SwitchToggleStyles";
 
 const SwitchToggle = () => {
 	const { currentTheme, setCurrentTheme } = useTheme();
-	const [name, setName] = useLocalStorage("theme", "");
+	const [name, setName] = useLocalStorage("theme", "dark");
 
 	React.useEffect(() => {
 		const detectUserDarkMode = () => {
@@ -14,7 +14,7 @@ const SwitchToggle = () => {
 				.matchMedia("(prefers-color-scheme: dark)")
 				.addEventListener("change", event => {
 					if (event.matches) {
-						setCurrentTheme("");
+						setCurrentTheme("dark");
 					} else {
 						setCurrentTheme("light");
 					}
@@ -31,14 +31,16 @@ const SwitchToggle = () => {
 	}, [currentTheme]);
 
 	const handleSwitchTheme = () => {
-		const isTheme = name === "light" ? "" : "light";
+		const isTheme = name === "light" ? "dark" : "light";
 		setCurrentTheme(isTheme);
 		setName(isTheme);
 	};
 
 	return (
 		<SwitchToggleWrap
+			aria-label="switch theme mode"
 			id="switch"
+			data-testid="toggle"
 			onClick={() => handleSwitchTheme()}
 		></SwitchToggleWrap>
 	);

@@ -24,6 +24,15 @@ html {
 }
 
 body {
+	font-family: var(--font-family);
+	font-weight: 400;
+	line-height: 24px;
+	color: var(--black);
+	background-color: var(--body);
+	transition: background-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.dark {
 	--black: hsl(0, 0%, 20%);
 	--white: hsl(0, 0%, 100%);
 	--orange: hsl(6, 99%, 65%);
@@ -33,13 +42,6 @@ body {
 	--logo: url(./images/white-logo.svg);
 	--icon: url(./images/icon-sun.svg);
 	--cover: hsl(0, 0%, 77%);
-
-	font-family: var(--font-family);
-	font-weight: 400;
-	line-height: 24px;
-	color: var(--black);
-	background-color: var(--body);
-	transition: background-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .light {

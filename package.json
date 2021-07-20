@@ -2,45 +2,77 @@
 	"name": "frontend-developer-clement-creusat-test",
 	"version": "1.0.0",
 	"description": "",
-	"main": "index.js",
+	"main": "./src/index.tsx",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
+		"test": "jest --verbose",
+		"test:watch": "npm run test -- --watch",
 		"start": "webpack serve --config ./webpack.config.js --port 3000",
 		"build": "webpack --config ./webpack.prod.js",
 		"dev-server": "webpack-dev-server",
-		"test-build": "cd public && npx serve"
+		"test-build": "cd public && npx serve",
+		"dev:build-server": "NODE_ENV=development webpack --config webpack.config.js --mode=development -w",
+		"dev:start": "nodemon ./server-build/index.js",
+		"dev": "npm-run-all --parallel build dev:*"
 	},
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
 		"@fontsource/roboto": "^4.4.5",
+		"@testing-library/user-event": "^13.2.0",
+		"@types/testing-library__jest-dom": "^5.14.0",
+		"express": "^4.17.1",
+		"fetch-mock": "^9.11.0",
 		"html-webpack-plugin": "^5.3.2",
+		"identity-obj-proxy": "^3.0.0",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
 		"react-is": "^17.0.2",
 		"react-loading-skeleton": "^2.2.0",
 		"react-router": "^5.2.0",
 		"react-router-dom": "^5.2.0",
-		"styled-components": "^5.3.0"
+		"styled-components": "^5.3.0",
+		"webpack-node-externals": "^3.0.0"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.14.6",
+		"@babel/plugin-transform-runtime": "^7.14.5",
 		"@babel/preset-env": "^7.14.7",
 		"@babel/preset-react": "^7.14.5",
-		"@types/react": "^17.0.13",
-		"@types/react-dom": "^17.0.8",
-		"@types/webpack-env": "^1.16.1",
+		"@babel/preset-typescript": "^7.14.5",
+		"@jest/types": "^27.0.6",
+		"@testing-library/jest-dom": "^5.14.1",
+		"@testing-library/react": "^12.0.0",
+		"@testing-library/react-hooks": "^7.0.1",
+		"@types/react": "^17.0.14",
+		"@types/react-dom": "^17.0.9",
+		"@types/react-router-dom": "^5.1.8",
+		"@types/webpack-env": "^1.16.2",
 		"babel-loader": "^8.2.2",
 		"css-loader": "^5.2.6",
+		"fetch-mock-jest": "^1.5.1",
 		"file-loader": "^6.2.0",
+		"jest": "^27.0.6",
+		"jest-fetch-mock": "^3.0.3",
+		"nodemon": "^2.0.12",
+		"npm-run-all": "^4.1.5",
 		"react-hot-loader": "^4.13.0",
+		"regenerator-runtime": "^0.13.7",
 		"serve": "^12.0.0",
-		"style-loader": "^3.0.0",
+		"style-loader": "^3.1.0",
 		"ts-loader": "^9.2.3",
 		"typescript": "^4.3.5",
 		"url-loader": "^4.1.1",
-		"webpack": "^5.42.0",
+		"webpack": "^5.45.1",
 		"webpack-cli": "^4.7.2",
 		"webpack-dev-server": "^3.11.2"
+	},
+	"jest": {
+		"setupFilesAfterEnv": [
+			"<rootDir>/setupTests.ts"
+		],
+		"moduleNameMapper": {
+			"\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+			"\\.(css|less|scss|sass)$": "identity-obj-proxy"
+		}
 	}
 }

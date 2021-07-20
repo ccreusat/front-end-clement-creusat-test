@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import SwitchToggle from "../SwitchToggle";
 
@@ -17,11 +18,11 @@ const Header = ({ pageTitle }: HeaderProps) => {
 		<HeaderWrapper>
 			<div>
 				<Link to="/" aria-label="Ubisoft Connect+">
-					<HeaderLogo></HeaderLogo>
+					<HeaderLogo id="logo" data-testid="logo" />
 				</Link>
 				<HeaderTitle>{pageTitle}</HeaderTitle>
 			</div>
-			<SwitchToggle />
+			<SwitchToggle data-testid="switch" />
 		</HeaderWrapper>
 	);
 };

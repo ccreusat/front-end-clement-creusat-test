@@ -18,12 +18,32 @@ import {
 	GameDetailText,
 } from "../styles/GameDetailStyles";
 
+import { useFetchData } from "../hooks/useFetchData";
+
 const GameDetail = () => {
-	const [storedGames] = useLocalStorage("games", []);
+	const [{ loading, error, data }] = useFetchData("./games.json");
+	const [storedGames, setStoredGames] = useLocalStorage("games", []);
+	const { id } = useParams<{ id: string }>() || {};
 
-	const { id } = useParams();
+	const game =
+		storedGames.find(info => info.id === id) ||
+		data.games.find(info => info.id === id);
 
-	const game = storedGames.find(game => game.id === id);
+	React.useEffect(() => {
+		console.log(loading);
+
+		if (!loading) {
+			setStoredGames(data.games);
+		}
+	}, [loading]);
+
+	if (loading) {
+		return <p>Loading...</p>;
+	}
+
+	if (error) {
+		return <p>Error...</p>;
+	}
 
 	return (
 		<Layout pageTitle="Game details" layoutCSS="detail">

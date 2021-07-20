@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "react-router-dom";
 
 import {
@@ -26,8 +27,10 @@ const GameCard = ({ id, name, platform, cover }: GameCardProps) => {
 					alt={"image" + name}
 				/>
 				<CardContent>
-					<CardTitle>{name}</CardTitle>
-					<CardPlatform>{platform}</CardPlatform>
+					<CardTitle data-testid="title">{name}</CardTitle>
+					<CardPlatform data-testid="platform">
+						{platform}
+					</CardPlatform>
 				</CardContent>
 			</Card>
 		</Link>

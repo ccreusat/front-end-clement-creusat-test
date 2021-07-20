@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import bunny from "../images/bunny.jpeg";
+// import bunny from "../images/bunny.jpeg";
 
 // CSS
 import { NoMatchContainer, NoMatchTitle } from "../styles/NoMatchStyles";
@@ -14,7 +14,7 @@ const NoMatchFound = () => {
 		<Layout pageTitle="404">
 			<NoMatchContainer
 				className="no-match"
-				style={{ backgroundImage: `url(${bunny})` }}
+				// style={{ backgroundImage: `url(${bunny})` }}
 			>
 				<NoMatchTitle>
 					No match found for <em>{location.pathname}</em>

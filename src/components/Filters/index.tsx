@@ -1,6 +1,6 @@
 import * as React from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import { useFetchPlatforms } from "../../hooks/useFetchPlatforms";
+import { useFetchData } from "../../hooks/useFetchData";
 
 // CSS
 import { FiltersNav, FiltersNavItem } from "../../styles/FiltersStyles";
@@ -11,14 +11,15 @@ type FiltersProps = {
 };
 
 const Filters = React.memo(({ currentFilter, onFilterList }: FiltersProps) => {
-	const [{ loading, error, platforms }] = useFetchPlatforms();
+	const [{ loading, error, data }] = useFetchData("./platforms.json");
 
 	// Block to create new Array adding "All" option filter
 	const [filters, setFilters] = React.useState([]);
-
 	React.useEffect(() => {
-		setFilters(["All", ...platforms]);
-	}, [platforms]);
+		if (!loading) {
+			setFilters(["All", ...data.platforms]);
+		}
+	}, [loading]);
 
 	// Set new Filter to render list of games
 	const setNewFilter = (selectedPlatform: string): void => {
@@ -34,7 +35,7 @@ const Filters = React.memo(({ currentFilter, onFilterList }: FiltersProps) => {
 
 	const [skeletonLoading, isSkeletonLoading] = React.useState(true);
 	React.useEffect(() => {
-		if (loading) {
+		if (skeletonLoading) {
 			isSkeletonLoading(false);
 		}
 	}, [loading]);
@@ -56,6 +57,10 @@ const Filters = React.memo(({ currentFilter, onFilterList }: FiltersProps) => {
 				</SkeletonTheme>
 			</FiltersNav>
 		);
+	}
+
+	if (loading) {
+		return <p>Loading...</p>;
 	}
 
 	if (error) {
