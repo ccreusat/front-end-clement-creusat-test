@@ -7,6 +7,7 @@ import Layout from "../components/Layout";
 
 // Hooks
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useFetchData } from "../hooks/useFetchData";
 
 // CSS
 import {
@@ -18,20 +19,20 @@ import {
 	GameDetailText,
 } from "../styles/GameDetailStyles";
 
-import { useFetchData } from "../hooks/useFetchData";
-
 const GameDetail = () => {
 	const [{ loading, error, data }] = useFetchData("./games.json");
 	const [storedGames, setStoredGames] = useLocalStorage("games", []);
 	const { id } = useParams<{ id: string }>() || {};
+
+	React.useEffect(() => {
+		console.log("coucou");
+	}, []);
 
 	const game =
 		storedGames.find(info => info.id === id) ||
 		data.games.find(info => info.id === id);
 
 	React.useEffect(() => {
-		console.log(loading);
-
 		if (!loading) {
 			setStoredGames(data.games);
 		}
@@ -45,27 +46,29 @@ const GameDetail = () => {
 		return <p>Error...</p>;
 	}
 
-	return (
-		<Layout pageTitle="Game details" layoutCSS="detail">
-			<div className="game">
-				<GameDetailHero
-					className="game__hero"
-					style={{ backgroundImage: `url(${game.hero})` }}
-				></GameDetailHero>
-				<GameDetailContent className="game__content">
-					<GameDetailHeader className="game__header">
-						<GameDetailHeading className="main-heading">
-							{game.name}
-						</GameDetailHeading>
-						<GameDetailPlatform className="small-heading">
-							{game.platform}
-						</GameDetailPlatform>
-					</GameDetailHeader>
-					<GameDetailText>{game.description}</GameDetailText>
-				</GameDetailContent>
-			</div>
-		</Layout>
-	);
+	if (game) {
+		return (
+			<Layout pageTitle="Game details" layoutCSS="detail">
+				<div className="game">
+					<GameDetailHero
+						className="game__hero"
+						style={{ backgroundImage: `url(${game.hero})` }}
+					></GameDetailHero>
+					<GameDetailContent className="game__content">
+						<GameDetailHeader className="game__header">
+							<GameDetailHeading className="main-heading">
+								{game.name}
+							</GameDetailHeading>
+							<GameDetailPlatform className="small-heading">
+								{game.platform}
+							</GameDetailPlatform>
+						</GameDetailHeader>
+						<GameDetailText>{game.description}</GameDetailText>
+					</GameDetailContent>
+				</div>
+			</Layout>
+		);
+	}
 };
 
 export default GameDetail;

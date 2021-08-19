@@ -1,5 +1,7 @@
 import * as React from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+
+// Hooks
 import { useFetchData } from "../../hooks/useFetchData";
 
 // CSS
