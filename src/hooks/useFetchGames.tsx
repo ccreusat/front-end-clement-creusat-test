@@ -34,7 +34,7 @@ export const useFetchGames = () => {
 		React.useEffect(() => {
 			Ubisoft.getGames()
 				.then(data => {
-					const { games } = data;
+					const {games} = data;
 					dispatch({ type: "FETCH_SUCCESS", payload: games });
 				})
 				.catch(error => {
